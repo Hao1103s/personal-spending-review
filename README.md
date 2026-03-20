@@ -9,6 +9,7 @@ Local-first MVP built with Next.js 15 + Prisma + SQLite. Goal: import transactio
 ## Preview / 预览
 
 ![Dashboard](https://placehold.co/1200x700/png?text=Dashboard+Preview)
+
 ![Monthly%20Review](https://placehold.co/1200x700/png?text=Monthly+Review)
 
 ## Features / 功能
