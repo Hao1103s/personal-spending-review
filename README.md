@@ -1,44 +1,49 @@
 # Personal Spending Review / 个人消费整理与复盘工具
 
-**English**  
-Local-first MVP built with Next.js 15 + Prisma + SQLite. Goal: import transactions -> clean -> auto categorize -> visualize -> monthly review.
+个人消费整理工具：导入流水、自动分类、可视化复盘，让每个月的消费“有结构、可回顾”。
 
-**中文**  
-基于 Next.js 15 + Prisma + SQLite 的本地单用户 MVP，目标是路通“导入流水→数据清洗→自动分类→可视化→月度复盘”全链路。
+A lightweight app that helps you clean up spending, auto categorize, and review monthly with clear visuals.
 
 ## Preview / 预览
 
-![Dashboard](https://placehold.co/1200x700/png?text=Dashboard+Preview)
-
-![Monthly%20Review](https://placehold.co/1200x700/png?text=Monthly+Review)
+<div align="center">
+  <img src="public/images/home.png" alt="Home dashboard / 首页看板" width="48%" />
+  <img src="public/images/load.png" alt="Import / 导入流水" width="48%" />
+</div>
+<div align="center">
+  <img src="public/images/blotter.png" alt="Blotter / 流水账单" width="48%" />
+  <img src="public/images/review.png" alt="Review / 复盘" width="48%" />
+</div>
 
 ## Features / 功能
 
-- CSV import (WeChat/Alipay/Generic bank)
-- Cleaning: time parsing, amount normalization, spending filters, dedup
-- Auto categorization: rules + Merchant Memory
-- Transaction management: filter/search/pagination, daily group, edit category/notes/merchant
-- Dashboard: KPIs, category bar chart, 30-day trend, top merchants, anomaly hints
-- Monthly review: overview, category breakdown, merchant breakdown, natural-language summary
-
-**注：功能清单与上面公司心一致，详见源码。**
+- 导入：支持常见支付工具的 CSV 流水
+- 自动分类：规则匹配 + “商户记忆”辅助纠错
+- 可视化复盘：看板 KPI、类别结构、30 天趋势、顶部商户
+- 复盘工作流：月度结构化结论（花了多少、花在哪、变化是什么）
 
 ## Quick start / 快速开始
 
-1. Clone repo
-2. Copy `.env.example` to `.env` and fill in required vars
-3. Install dependencies
-   ```bash
-   npm install
-   ```
-4. Start dev server
-   ```bash
-   npm run dev
-   ```
-5. Import sample CSV from `public/sample-data` (or your own)
+1. Install dependencies
 
-## Notes / 注意事项
+```bash
+npm install
+```
 
-- SQLite data is stored locally.
-- Merchant Memory helps auto-complete categories for repeat merchants.
-- For screenshots in README, replace the placeholder image URLs with real images you upload to the repo.
+2. Run
+
+```bash
+npm run dev
+```
+
+3. 导出 CSV 流水并导入，看分类、补充备注，然后开始复盘。
+
+## Download / 下载
+
+v1.0.0 provides installers for macOS and Windows (see Releases).
+v1.0.0 提供 macOS / Windows 安装包（见 Releases）。
+
+## Notes / 说明
+
+- 本项目更偏“个人工具”，默认本地存储，便于离线整理。
+- 分类体系建议先从大类开始，逐步增加细分类（避免过度细分）。
