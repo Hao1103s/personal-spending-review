@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+.next
+node_modules
+.env
+.env.local
+coverage
+dist
+desktop-runtime
+release
+*.log
+prisma/dev.db
+prisma/dev.db-journal
+vitest.config.ts.timestamp-*

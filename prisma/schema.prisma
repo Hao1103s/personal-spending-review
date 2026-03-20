@@ -1,0 +1,94 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin", "darwin-arm64", "windows"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum SourceType {
+  wechat_csv
+  alipay_csv
+  generic_bank_csv
+}
+
+enum TransactionType {
+  expense
+  income
+  transfer
+  refund
+}
+
+enum CategoryStatus {
+  confirmed
+  auto
+  pending
+}
+
+enum MatchType {
+  exact
+  contains
+  regex
+}
+
+model Transaction {
+  id                 String          @id @default(cuid())
+  sourceType         SourceType
+  sourceAccount      String?
+  rawMerchant        String
+  merchant           String
+  amount             Decimal
+  transactionTime    DateTime
+  transactionType    TransactionType
+  category           String
+  categoryConfidence Float
+  categoryStatus     CategoryStatus
+  note               String?
+  importBatchId      String
+  dedupKey           String          @unique
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+  importBatch        ImportBatch     @relation(fields: [importBatchId], references: [id], onDelete: Cascade)
+
+  @@index([transactionTime])
+  @@index([category])
+  @@index([sourceType])
+  @@index([merchant])
+}
+
+model ImportBatch {
+  id                  String        @id @default(cuid())
+  sourceType          SourceType
+  fileName            String
+  totalRows           Int
+  importedRows        Int
+  dedupedRows         Int
+  pendingCategoryRows Int
+  createdAt           DateTime      @default(now())
+  transactions        Transaction[]
+}
+
+model CategoryRule {
+  id        String    @id @default(cuid())
+  matchType MatchType
+  pattern   String
+  category  String
+  priority  Int       @default(0)
+  isSystem  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([priority])
+}
+
+model MerchantMemory {
+  id         String    @id @default(cuid())
+  merchant   String    @unique
+  category   String
+  hitCount   Int       @default(1)
+  lastUsedAt DateTime
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
